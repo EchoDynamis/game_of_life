@@ -14,7 +14,7 @@ fn main() {
     grid[3][3] = true;
 
     loop {
-        print!("\x1B[2J\x1B[1;1H"); // Clear screen
+        print!("\x1B[2J\x1B[1;1H"); // Clear screen and move cursor to top-left
         display(&grid);
         grid = next_generation(&grid);
         io::stdout().flush().unwrap();
@@ -25,9 +25,9 @@ fn main() {
 fn display(grid: &[[bool; WIDTH]; HEIGHT]) {
     for row in grid.iter() {
         for &cell in row.iter() {
-            print!("{}", if cell { "█" } else { " " });
+            print!("{}", if cell { "*" } else { " " });
         }
-        println!();
+        print!("\r\n"); // Carriage return and newline to stay in place
     }
 }
 
